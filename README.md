@@ -34,8 +34,8 @@ This workflow automates the hiring process using n8n and AI.
 5. AI compares resume with job description
 6. Candidate scored (0–1)
 7. Decision:
-   - Score ≥ 0.4 → Shortlisted
-   - Score < 0.4 → Rejected
+   - Score ≥ 0.7 → Shortlisted
+   - Score < 0.7 → Rejected
 8. Email sent automatically
 
 ---
@@ -75,6 +75,6 @@ The AI agent compares:
 Returns:
 ```json
 {
-  "score": 0.75,
+  "score": 0.85,
   "reason": "Good skill match but lacks experience"
 }
