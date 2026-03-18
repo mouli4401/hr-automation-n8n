@@ -1,0 +1,794 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Job Application Form",
+        "formDescription": "Job Role: Graduate Software Engineer (2026 Batch)\nJob Description\n\nWe are looking for motivated and passionate Graduate Software Engineers from the 2026 batch to join our engineering team. The candidate will work on developing software applications, solving technical problems, and collaborating with the development team to build scalable systems.\n\nResponsibilities\n\nWrite clean and efficient code for software applications\n\nAssist in developing backend or frontend components\n\nDebug and troubleshoot software issues\n\nParticipate in code reviews and team discussions\n\nLearn and work with modern technologies and tools\n\nRequired Skills\n\nBasic knowledge of Data Structures and Algorithms\n\nProgramming in Python / Java / C++\n\nUnderstanding of Object-Oriented Programming (OOP)\n\nBasic knowledge of SQL and databases\n\nProblem-solving and logical thinking\n\nPreferred Skills\n\nKnowledge of web development (HTML, CSS, JavaScript)\n\nFamiliarity with Git version control\n\nUnderstanding of REST APIs\n\nEligibility\n\nB.Tech / B.E / MCA / B.Sc (Computer Science / IT)\n\nGraduating in 2026\n\nGood communication and teamwork skills\n\nExperience\n\nFreshers (0 years experience)\n\nLocation\n\nIndia (Remote / Hybrid)",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Phone Number",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Degree",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Branch",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Graduation Year",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "CGPA",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Experiance",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Current Location",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Resume",
+              "fieldType": "file",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "0c87e9c6-77e3-466d-962d-df42d28c17d1",
+      "name": "On form submission",
+      "webhookId": "7396ece2-f3e8-4b2c-9f0a-9cb7e06ee0e0"
+    },
+    {
+      "parameters": {
+        "inputDataFieldName": "Resume",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "root",
+          "cachedResultName": "/ (Root folder)"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "21026471-3e78-41d7-99b6-b0d4b34032e1",
+      "name": "Upload file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "YNg8kqOWdAbldYjK",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "807099da-c576-4aee-af8a-ee320c8b1f75",
+              "name": "Resume Id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        0
+      ],
+      "id": "9fce16b5-85f6-4fdf-9a08-acbb33eb7a97",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1meeuY8uXPgZYCEKAul6dMOKYUmCaX8D4vSem20DXcCc",
+          "mode": "list",
+          "cachedResultName": "Hiring2026",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1meeuY8uXPgZYCEKAul6dMOKYUmCaX8D4vSem20DXcCc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1meeuY8uXPgZYCEKAul6dMOKYUmCaX8D4vSem20DXcCc/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $('On form submission').item.json.Name }}",
+            "Email": "={{ $('On form submission').item.json.Email }}",
+            "Phone Number": "={{ $('On form submission').item.json['Phone Number'] }}"
+          },
+          "matchingColumns": [
+            "Email"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Applying For",
+              "displayName": "Applying For",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Stage",
+              "displayName": "Stage",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "JD CV Score ",
+              "displayName": "JD CV Score ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CV Score notes ",
+              "displayName": "CV Score notes ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {
+          "cellFormat": "USER_ENTERED"
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        624,
+        0
+      ],
+      "id": "0281aa72-b0db-4e2a-a33e-e0d04187c450",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zIopXBhZtsr8uKh6",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $('Edit Fields').item.json['Resume Id'] }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        832,
+        0
+      ],
+      "id": "2b2b2195-ae46-460c-977b-89a71d5be182",
+      "name": "Download file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "YNg8kqOWdAbldYjK",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        1040,
+        0
+      ],
+      "id": "ba5b01ac-c951-4b2d-a19a-9e4597d5aa1c",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.text }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=Compare the following job description and resume.\n\nReturn the result in JSON format only.\n\n{\n\"score\": number between 0 and 1,\n\"reason\": \"short explanation under 20 words\"\n}\n\nJob Description:\nLooking for a Software Developer (Fresher). Required skills: Java, Python, JavaScript, SQL, HTML, CSS, ReactJS, Angular basics, Spring Boot, REST APIs, Machine Learning basics, NLP basics, GitHub, MySQL, OOP, DSA, DBMS, Computer Networks, Operating Systems.\n\nResume:\n{{ $json.text }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1248,
+        0
+      ],
+      "id": "9860efee-0296-4f23-ab6f-8d955cd1ff99",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        1120,
+        208
+      ],
+      "id": "285fe531-f2a7-4b5f-996e-d4cfd1707b0f",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "TGCm2NQpkhfhafXi",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"score\":0.8,\n  \"reason\":\"Does not meet required number of experiance in years\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        1424,
+        208
+      ],
+      "id": "959d186b-b690-4a38-950c-94735a38b76b",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "b33d52cf-d1bd-497e-8d2e-b279cc0eb10c",
+              "leftValue": "={{ $json.output.score }}",
+              "rightValue": 0.4,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1600,
+        0
+      ],
+      "id": "3741e257-8971-419f-aea4-9a89fa908135",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1meeuY8uXPgZYCEKAul6dMOKYUmCaX8D4vSem20DXcCc",
+          "mode": "list",
+          "cachedResultName": "Hiring2026",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1meeuY8uXPgZYCEKAul6dMOKYUmCaX8D4vSem20DXcCc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1meeuY8uXPgZYCEKAul6dMOKYUmCaX8D4vSem20DXcCc/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Stage": "Not Shortlisted",
+            "Email": "={{ $('On form submission').item.json.Email }}"
+          },
+          "matchingColumns": [
+            "Email"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Applying For",
+              "displayName": "Applying For",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Stage",
+              "displayName": "Stage",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "JD CV Score ",
+              "displayName": "JD CV Score ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CV Score notes ",
+              "displayName": "CV Score notes ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1808,
+        96
+      ],
+      "id": "5885c1fb-4e36-45bd-ae75-694badbe3d9d",
+      "name": "Append or update row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zIopXBhZtsr8uKh6",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Email }}",
+        "subject": "Application Status Update – Thank You for Applying",
+        "message": "=<!DOCTYPE html>\n<html>\n<body style=\"font-family: Arial, sans-serif; background:#f4f6f8; padding:20px;\">\n\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n<tr>\n<td align=\"center\">\n\n<table width=\"600\" style=\"background:white; border-radius:8px; padding:30px; box-shadow:0 2px 8px rgba(0,0,0,0.1);\">\n\n<tr>\n<td style=\"text-align:center;\">\n<h2 style=\"color:#2c3e50;\">Application Status Update</h2>\n</td>\n</tr>\n\n<tr>\n<td style=\"font-size:15px; color:#333; line-height:1.6;\">\n\n<p>Dear {{ $('On form submission').item.json.Name }},</p>\n\n<p>\nThank you for applying for the position with our organization and for taking the time to share your resume with us.\n</p>\n\n<p>\nAfter careful review of your application, we regret to inform you that we will not be moving forward with your profile for this role at this time.\n</p>\n\n<p>\nWe truly appreciate your interest in our organization and encourage you to apply again for future opportunities that match your skills and experience.\n</p>\n\n<p>\nWe wish you the very best in your job search and future career.\n</p>\n\n<p>\nBest regards,<br>\n<strong>HR Team</strong><br>\nTalent Acquisition\n</p>\n\n</td>\n</tr>\n\n</table>\n\n</td>\n</tr>\n</table>\n\n</body>\n</html>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2016,
+        96
+      ],
+      "id": "d269d667-0fac-46eb-96e2-25ec3e7133a3",
+      "name": "Send a message",
+      "webhookId": "12fc1c59-40ae-4ad2-b348-20afc02f04a0",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "GiubJJrIuLkA9kkZ",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1meeuY8uXPgZYCEKAul6dMOKYUmCaX8D4vSem20DXcCc",
+          "mode": "list",
+          "cachedResultName": "Hiring2026",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1meeuY8uXPgZYCEKAul6dMOKYUmCaX8D4vSem20DXcCc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1meeuY8uXPgZYCEKAul6dMOKYUmCaX8D4vSem20DXcCc/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email": "={{ $('On form submission').item.json.Email }}",
+            "JD CV Score ": "={{ $('AI Agent').item.json.output.score }}",
+            "Stage": "Shortlisted"
+          },
+          "matchingColumns": [
+            "Email"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Applying For",
+              "displayName": "Applying For",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Stage",
+              "displayName": "Stage",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "JD CV Score ",
+              "displayName": "JD CV Score ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CV Score notes ",
+              "displayName": "CV Score notes ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1808,
+        -96
+      ],
+      "id": "e811506e-9368-4169-b79d-84e18d1d7e47",
+      "name": "Append or update row in sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zIopXBhZtsr8uKh6",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('On form submission').item.json.Email }}",
+        "subject": "Interview Invitation – Application Shortlisted",
+        "message": "=<!DOCTYPE html>\n<html>\n<body style=\"font-family: Arial, sans-serif; background:#f4f6f8; padding:20px;\">\n\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n<tr>\n<td align=\"center\">\n\n<table width=\"600\" style=\"background:white; border-radius:8px; padding:30px; box-shadow:0 2px 8px rgba(0,0,0,0.1);\">\n\n<tr>\n<td style=\"text-align:center;\">\n<h2 style=\"color:#2c3e50;\">Application Shortlisted</h2>\n</td>\n</tr>\n\n<tr>\n<td style=\"font-size:15px; color:#333; line-height:1.6;\">\n\n<p>Dear {{ $('On form submission').item.json.Name }},</p>\n\n<p>\nThank you for applying for the position with our organization.\n</p>\n\n<p>\nWe are pleased to inform you that your resume has been <strong>shortlisted</strong> based on your qualifications and experience.\n</p>\n\n<p>\nAs the next step, our hiring process consists of <strong>three rounds</strong>:\n</p>\n\n<ul>\n<li><strong>Round 1 – Resume Screening:</strong> Evaluation of skills, projects, and experience.</li>\n<li><strong>Round 2 – Technical Interview:</strong> Assessment of technical knowledge and problem-solving ability.</li>\n<li><strong>Round 3 – HR Interview:</strong> Discussion about communication skills, culture fit, and career goals.</li>\n</ul>\n\n<p>\nOur team will soon share the interview schedule and further instructions. Please keep an eye on your email for updates.\n</p>\n\n<p>\nWe look forward to speaking with you.\n</p>\n\n<p>\nBest regards,<br>\n<strong>HR Team</strong><br>\nTalent Acquisition\n</p>\n\n</td>\n</tr>\n\n</table>\n\n</td>\n</tr>\n</table>\n\n</body>\n</html>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2016,
+        -96
+      ],
+      "id": "474f13bb-6c52-4faa-9bd7-855a3ece777f",
+      "name": "Send a message1",
+      "webhookId": "e55c3c28-174a-4fd9-b137-17f68d8b7ac4",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "GiubJJrIuLkA9kkZ",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Upload file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload file": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append or update row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet2": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "920af457-f8cd-4bbf-8f78-2d8fc0e3011e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ca063b7b1ab80c01255529424b8220934bd9bffae9a1544aae053104bc331c19"
+  },
+  "id": "aRQIp8kunvQi7JcO",
+  "tags": []
+}
